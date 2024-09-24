@@ -2,5 +2,14 @@
 A example of showcasing how blockchains work.
 
 
-### Blake2B
-["BLAKE2 is a cryptographic hash function faster than MD5, SHA-1, SHA-2, and SHA-3, yet is at least as secure as the latest standard SHA-3." ](https://arc.net/l/quote/lpjkfqwe)
+### Blake2s256
+Blake2s256 is a cryptographic hash function that produces a digest of 256 bits. It is a faster and more secure alternative to SHA-256. It is used in this project to hash the block data.
+
+## To Do List
+
+- [ ] Create blockchain structure
+- [ ] Create a way to add blocks to the chain
+- [ ] Add a way to mine blocks (Proof of Work)
+- [ ] Create a way to verify the chain
+- [ ] Add a way to display the chain
+
