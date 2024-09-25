@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -I/opt/homebrew/Cellar/openssl@3/3.3.2/include
 LDFLAGS = -L/opt/homebrew/Cellar/openssl@3/3.3.2/lib -lssl -lcrypto
 TARGET = blockchain
-SRCS = src/hash.c src/block.c
+SRCS = src/hash.c src/block.c src/ui.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(TARGET)

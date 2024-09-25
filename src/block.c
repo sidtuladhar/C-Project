@@ -3,27 +3,27 @@
 #include <string.h>
 #include <time.h>
 #include "hash.h"
+#include "block.h"
 
-typedef struct Block {
-    time_t timestamp;
-    int index;
-    char hash[65];
-    char prev_hash[65];
-    char data[256]; 
-    int nonce;
-} Block;
+void verify_block(Block *block) {
+    hash_block(block);
+    if (strcmp(block->hash, block->prev_hash) != 0) {
+        printf("Block hash does not match previous hash\n");
+        exit(1);
+    }
+}
 
-typedef struct Blockchain {
-    Block *blocks;
-    int block_count;
-} Blockchain;   
-
+void add_block(Blockchain *blockchain, Block *block) {
+    verify_block(block);
+    blockchain->blocks = (Block *)realloc(blockchain->blocks, (blockchain->block_count + 1) * sizeof(Block));
+    blockchain->blocks[blockchain->block_count] = *block;
+    blockchain->block_count++;
+}
 
 void hash_block(Block *block) {
     unsigned char hash_output[32];  // 256 bits = 32 bytes for the raw output
     unsigned int output_len;
 
-    // Concatenate block data into a string to hash (simplified for the example)
     char block_data[512];
     sprintf(block_data, "%d%ld%s%s%d", block->index, block->timestamp, block->prev_hash, block->data, block->nonce);
 
