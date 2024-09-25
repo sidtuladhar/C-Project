@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "block.h"
+#include "../include/block.h"
 
 void visualize_blockchain(Blockchain *blockchain) {   
 
@@ -19,12 +19,12 @@ void handle_commands(Blockchain *blockchain) {
         if (strncmp(command, "/open", 5) == 0) {
             int block_number;
             if (sscanf(command, "open %d", &block_number) == 1) {
-                display_block_details(blockchain, block_number - 1);  // Subtract 1 for 0-based index
+                //display_block_details(blockchain, block_number - 1);  // Subtract 1 for 0-based index
             } else {
                 printf("Invalid command. Use '/open <block_number>'.\n");
             }
         } else if (strcmp(command, "/back") == 0) {
-            display_blockchain_summary(blockchain);
+            //display_blockchain_summary(blockchain);
         } else if (strcmp(command, "/q") == 0) {
             break;
         } else if (strcmp(command, "") == 0) {

@@ -2,23 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "hash.h"
-#include "block.h"
-
-void verify_block(Block *block) {
-    hash_block(block);
-    if (strcmp(block->hash, block->prev_hash) != 0) {
-        printf("Block hash does not match previous hash\n");
-        exit(1);
-    }
-}
-
-void add_block(Blockchain *blockchain, Block *block) {
-    verify_block(block);
-    blockchain->blocks = (Block *)realloc(blockchain->blocks, (blockchain->block_count + 1) * sizeof(Block));
-    blockchain->blocks[blockchain->block_count] = *block;
-    blockchain->block_count++;
-}
+#include "../include/hash.h"
+#include "../include/block.h"
 
 void hash_block(Block *block) {
     unsigned char hash_output[32];  // 256 bits = 32 bytes for the raw output
@@ -34,6 +19,21 @@ void hash_block(Block *block) {
     for (int i = 0; i < output_len; i++) {
         sprintf(block->hash + (i * 2), "%02x", hash_output[i]);
     }
+}
+
+void verify_block(Block *block) {
+    hash_block(block);
+    if (strcmp(block->hash, block->prev_hash) != 0) {
+        printf("Block hash does not match previous hash\n");
+        exit(1);
+    }
+}
+
+void add_block(Blockchain *blockchain, Block *block) {
+    verify_block(block);
+    blockchain->blocks = (Block *)realloc(blockchain->blocks, (blockchain->block_count + 1) * sizeof(Block));
+    blockchain->blocks[blockchain->block_count] = *block;
+    blockchain->block_count++;
 }
 
 void mine_block(Block *block) {
