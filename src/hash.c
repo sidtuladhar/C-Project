@@ -7,14 +7,14 @@ void compute_hash(const char *input, unsigned char *output, unsigned int *output
 
     mdctx = EVP_MD_CTX_new();
     if(mdctx == NULL) {
-    printf("Failed to create context\n");
-    return;
+        printf("Failed to create context\n");
+        return;
     }
 
     if(1 != EVP_DigestInit_ex(mdctx, EVP_blake2s256(), NULL)) {
-    printf("Failed to initialize BLAKE2s256\n");
-    EVP_MD_CTX_free(mdctx);
-    return;
+        printf("Failed to initialize BLAKE2s256\n");
+        EVP_MD_CTX_free(mdctx);
+        return;
     }
 
     // Hash the input message
@@ -31,6 +31,5 @@ void compute_hash(const char *input, unsigned char *output, unsigned int *output
         return;
     }
 
-    // Clean up and free the context
     EVP_MD_CTX_free(mdctx);
 }
