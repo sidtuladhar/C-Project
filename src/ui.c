@@ -8,6 +8,27 @@ void visualize_blockchain(Blockchain *blockchain) {
 
 }
 
+void visualize_block(Block *block) {
+    char time_str[26];
+    struct tm *tm_info;
+
+    tm_info = localtime(&block->timestamp);
+    strftime(time_str, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+
+    printf("+-----------------------+\n");
+    printf("|       Block #%d        |\n", block->index);
+    printf("+-----------------------+\n");
+    printf("|  Previous Hash: %.5s |\n", block->prev_hash);  // Printing first 10 chars of hash
+    printf("|  Timestamp: %.10s|\n", time_str);
+    printf("|  Nonce: %d        |\n", block->nonce);
+    printf("|  Data: %.10s     |\n", block->data);              // Limiting to 10 chars for formatting
+    printf("+-----------------------+\n");
+    printf("|   Hash: %.10s    |\n", block->hash);          // Printing first 10 chars of hash
+    printf("+-----------------------+\n");
+
+}
+
+
 void handle_commands(Blockchain *blockchain) {
     char command[256];
     while (1) {
@@ -18,10 +39,14 @@ void handle_commands(Blockchain *blockchain) {
 
         if (strncmp(command, "/open", 5) == 0) {
             int block_number;
-            if (sscanf(command, "open %d", &block_number) == 1) {
-                //display_block_details(blockchain, block_number - 1);  // Subtract 1 for 0-based index
+            if (sscanf(command, "/open %d", &block_number) == 1) {
+                if (block_number >= 0 && block_number < blockchain->block_count) {
+                    visualize_block(&blockchain->blocks[block_number]);
+                } else {
+                    printf("Block number out of range.\n");
+                }
             } else {
-                printf("Invalid command. Use '/open <block_number>'.\n");
+                printf("Invalid command.\n");
             }
         } else if (strcmp(command, "/back") == 0) {
             //display_blockchain_summary(blockchain);
@@ -41,8 +66,3 @@ void handle_commands(Blockchain *blockchain) {
         }
     }
 }
-
-void visualize_block(Block *block) {
-
-}
-

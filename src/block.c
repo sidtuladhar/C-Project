@@ -30,7 +30,6 @@ void verify_block(Block *block) {
 }
 
 void add_block(Blockchain *blockchain, Block *block) {
-    verify_block(block);
     blockchain->blocks = (Block *)realloc(blockchain->blocks, (blockchain->block_count + 1) * sizeof(Block));
     blockchain->blocks[blockchain->block_count] = *block;
     blockchain->block_count++;
@@ -46,29 +45,5 @@ void mine_block(Block *block) {
             break;
         }
     }
-}
-
-int main() {
-    Block *myblock = (Block *)malloc(sizeof(Block));
-
-    // Initialize test data for the Block
-    myblock->index = 1;  // This is block #1
-    myblock->timestamp = time(NULL);  // Use the current time as the timestamp
-    strcpy(myblock->prev_hash, "0000000000000000000000000000000000000000000000000000000000000000");  // Genesis block hash (usually all zeros)
-    strcpy(myblock->data, "This is some test data for the block");  // Custom test data
-    myblock->nonce = 12345;
-
-    hash_block(myblock);
-    mine_block(myblock);
-
-    printf("Block Index: %d\n", myblock->index);
-    printf("Timestamp: %ld\n", myblock->timestamp);
-    printf("Previous Hash: %s\n", myblock->prev_hash);
-    printf("Data: %s\n", myblock->data);
-    printf("Nonce: %d\n", myblock->nonce);
-    printf("Hash: %s\n", myblock->hash);
-
-    free(myblock);
-
-    return 0;
+    hash_block(block);
 }

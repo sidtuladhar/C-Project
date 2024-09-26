@@ -17,5 +17,13 @@ typedef struct Blockchain {
     int block_count;
 } Blockchain;
 
+void hash_block(Block *block);
+
+void verify_block(Block *block);
+
+void add_block(Blockchain *blockchain, Block *block);
+
+void mine_block(Block *block);
+
 
 #endif
