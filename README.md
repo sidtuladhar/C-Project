@@ -7,9 +7,9 @@ Blake2s256 is a cryptographic hash function that produces a digest of 256 bits. 
 
 ## To Do List
 
-- [-] Create blockchain structure
+- [x] Create blockchain structure
 - [ ] Create a way to add blocks to the chain
-- [-] Add a way to mine blocks (Proof of Work)
+- [x] Add a way to mine blocks (Proof of Work)
 - [ ] Create a way to verify the chain
 - [ ] Add a way to display the chain
 
