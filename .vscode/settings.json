@@ -1,5 +1,8 @@
 {
   "files.associations": {
-    "hash.h": "c"
+    "hash.h": "c",
+    "block.h": "c",
+    "mongoose.h": "c",
+    "string.h": "c"
   }
 }
