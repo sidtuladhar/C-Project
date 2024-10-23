@@ -14,4 +14,5 @@ Blake2s256 is a cryptographic hash function that produces a digest of 256 bits. 
 - [ ] Add a way to display the chain
 - [ ] Integrate with GUI
 - [ ] Add messaging system
+- [ ] Figure out how to store the chain
 

@@ -20,7 +20,6 @@ int main() {
     mine_block(&block1);
     add_block(&blockchain, &block1);
 
-
     handle_commands(&blockchain);
 
     return 0;
