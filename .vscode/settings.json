@@ -3,6 +3,12 @@
     "hash.h": "c",
     "block.h": "c",
     "mongoose.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "stdio.h": "c",
+    "dns_sd.h": "c",
+    "time.h": "c",
+    "mdns.h": "c",
+    "socket.h": "c",
+    "dht.h": "c"
   }
 }

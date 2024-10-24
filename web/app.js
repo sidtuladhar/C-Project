@@ -1,34 +1,46 @@
-// Connect to the WebSocket server
+// WebSocket connection
 const socket = new WebSocket('ws://' + window.location.host + '/websocket');
 
 const chat = document.getElementById('chat');
 const messageInput = document.getElementById('message');
 const sendButton = document.getElementById('send');
+const searchPeersButton = document.getElementById('search-peers');
+const peersList = document.getElementById('peers-list');
 
 socket.onopen = () => {
     console.log('Connected to the WebSocket server');
 };
 
 socket.onmessage = (event) => {
-    // Display the received message in the chat
-    const msg = document.createElement('div');
-    msg.textContent = event.data;
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
+    const data = JSON.parse(event.data);
+
+    if (data.type === 'peer_list') {
+        // Clear the current peer list
+        peersList.innerHTML = '';
+
+        // Display each peer in the list
+        data.peers.forEach(peer => {
+            const peerItem = document.createElement('div');
+            peerItem.textContent = `Found peer: ${peer}`;
+            peersList.appendChild(peerItem);
+        });
+    } else {
+        // Handle chat messages
+        const msg = document.createElement('div');
+        msg.textContent = event.data;
+        chat.appendChild(msg);
+        chat.scrollTop = chat.scrollHeight;
+    }
 };
 
 sendButton.onclick = () => {
     const message = messageInput.value;
     if (message) {
-        // Send the message to the server
         socket.send(message);
         messageInput.value = '';
     }
 };
 
-// Allow sending the message with the Enter key
-messageInput.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
-        sendButton.click();
-    }
-});
+searchPeersButton.onclick = () => {
+    socket.send(JSON.stringify({ type: 'search_peers' }));
+};

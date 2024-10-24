@@ -3,12 +3,15 @@
 
 #include <time.h>
 
+#define HASH_SIZE 65
+#define DATA_SIZE 256
+
 typedef struct Block {
     time_t timestamp;
     int index;
-    char hash[65];
-    char prev_hash[65];
-    char data[256]; 
+    char hash[HASH_SIZE];
+    char prev_hash[HASH_SIZE];
+    char data[DATA_SIZE]; 
     int nonce;
 } Block;
 
